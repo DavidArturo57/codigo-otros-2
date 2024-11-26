@@ -1,39 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> <!-- Define el idioma del documento como inglés -->
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" media="screen" href="./styles.css">
-  <title>Formulario</title>
+  <meta charset="UTF-8"> <!-- Establece la codificación de caracteres como UTF-8 para soportar caracteres especiales -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Asegura que el navegador use el motor de renderizado más reciente -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Asegura que el diseño sea responsivo y adecuado para dispositivos móviles -->
+  <link rel="stylesheet" type="text/css" media="screen" href="./styles.css"> <!-- Enlaza el archivo de CSS para estilizar la página -->
+  <title>Formulario</title> <!-- Título de la página -->
 </head>
+
 <body>
-  <h1>Bienvenidos a mi fiesta</h1>
-  <h2>Por favor, confirmar asistencia:</h2>
+  <h1>Bienvenidos a mi fiesta</h1> <!-- Título principal de la página -->
+  <h2>Por favor, confirmar asistencia:</h2> <!-- Subtítulo con instrucciones para el usuario -->
 
-  <form class="formulario">
-    Nombre <input type="text" name="name" id="name">
-    <br />
-    Edad <input type="number" name="age" id="age">
+  <!-- Formulario para la confirmación de asistencia -->
+  <form class="formulario" id="form"> 
+    <label for="name">Nombre:</label> <!-- Etiqueta que describe el campo para el nombre -->
+    <input type="text" name="name" id="name" required> <!-- Campo de texto para el nombre del invitado, obligatorio -->
     <br />
 
-    Nacionalidad
-    <select name="nationality" id="nationality">
-      <option value="ar">Argentina</option>
-      <option value="mx">Mexicana</option>
-      <option value="per">Peruana</option>
-      <option value="vnzl">Venezolana</option>
+    <label for="age">Edad:</label> <!-- Etiqueta que describe el campo para la edad -->
+    <input type="number" name="age" id="age" required min="0"> <!-- Campo de número para la edad del invitado, obligatorio con un valor mínimo de 0 -->
+    <br />
+
+    <label for="nationality">Nacionalidad:</label> <!-- Etiqueta que describe el campo para la nacionalidad -->
+    <select name="nationality" id="nationality"> <!-- Menú desplegable para seleccionar la nacionalidad -->
+      <option value="ar">Argentina</option> <!-- Opción para seleccionar Argentina -->
+      <option value="mx">Mexicana</option> <!-- Opción para seleccionar México -->
+      <option value="per">Peruana</option> <!-- Opción para seleccionar Perú -->
+      <option value="vnzl">Venezolana</option> <!-- Opción para seleccionar Venezuela -->
     </select>
     <br />
-    <input type="submit">
+    
+    <!-- Botón de envío del formulario -->
+    <input type="submit"> <!-- Enviar el formulario -->
   </form>
 
+  <!-- Sección donde se mostrará la lista de invitados -->
   <div>
-    <h2>Lista de invitados</h2>
-
+    <h2>Lista de invitados</h2> <!-- Título para la lista de invitados -->
+    <div id="guest-list"> <!-- Contenedor donde se agregarán los invitados dinámicamente -->
+      <!-- Los invitados se agregarán aquí dinámicamente con JavaScript -->
+    </div>
   </div>
 
+  <!-- Enlace al archivo JavaScript donde se maneja la lógica del formulario y la lista de invitados -->
   <script src="../formulario.js"></script>
 </body>
 

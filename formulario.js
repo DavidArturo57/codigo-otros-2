@@ -1,87 +1,53 @@
-var formulario = document.querySelector("#form")
+// Selección del formulario y lista de invitados
+const formulario = document.getElementById('form');
+const guestList = document.getElementById('guest-list');
 
+// Función para manejar el envío del formulario
 formulario.onsubmit = function(e) {
+  e.preventDefault(); // Prevenir el comportamiento por defecto de recargar la página
 
-  e.preventDefault();  // Corregido: 'e.prevent()' a 'e.preventDefault()'
+  const name = document.getElementById('name').value;
+  const age = document.getElementById('age').value;
+  const nationality = document.getElementById('nationality').value;
 
-  // Obtener valores de los campos del formulario
-  var n = formulario.elements["name"];
-  var e = formulario.elements["age"];
-  var na = formulario.elements["nationality"];
-
-  var nombre = n.value.trim(); // Usar trim() para eliminar espacios innecesarios
-  var edad = parseInt(e.value); // Convertir la edad a número
-  var nacionalidad = na.value;
-
-  // Verificación de datos válidos
-  if (nombre.length === 0) {
-    n.classList.add("error");
-  } else {
-    n.classList.remove("error");
+  // Validación de campos
+  if (name === '' || age === '') {
+    alert('Por favor, complete todos los campos');
+    return;
   }
 
-  if (edad < 18 || edad > 120) {
-    e.classList.add("error");
-  } else {
-    e.classList.remove("error");
-  }
+  // Crear un nuevo invitado
+  const invitadoDiv = document.createElement('div');
+  invitadoDiv.classList.add('invitado');
 
-  // Si los datos son válidos, agregar el invitado a la lista
-  if (nombre.length > 0 && edad >= 18 && edad <= 120) {
-    agregarInvitado(nombre, edad, nacionalidad);
-  }
+  // Añadir los datos del invitado
+  invitadoDiv.innerHTML = `
+    <p><strong>Nombre:</strong> ${name}</p>
+    <p><strong>Edad:</strong> ${age}</p>
+    <p><strong>Nacionalidad:</strong> ${getNationalityName(nationality)}</p>
+    <button class="remove-btn">Eliminar invitado</button>
+  `;
+
+  // Añadir el invitado a la lista
+  guestList.appendChild(invitadoDiv);
+
+  // Limpiar el formulario
+  formulario.reset();
+
+  // Asignar la función para eliminar el invitado
+  const removeButton = invitadoDiv.querySelector('.remove-btn');
+  removeButton.onclick = function() {
+    guestList.removeChild(invitadoDiv);
+  };
 };
 
-// Función para agregar invitado a la lista
-function agregarInvitado(nombre, edad, nacionalidad) {
-  // Crear el elemento para la lista de invitados
-  var lista = document.getElementById("lista-de-invitados");
-
-  var elementoLista = document.createElement("div");
-  elementoLista.classList.add("elemento-lista");  // Usar 'classList.add' para agregar clase CSS
-  lista.appendChild(elementoLista);
-
-  // Crear y agregar los campos de la información del invitado
-  crearElemento("Nombre", nombre, elementoLista);
-  crearElemento("Edad", edad, elementoLista);
-  crearElemento("Nacionalidad", convertirNacionalidad(nacionalidad), elementoLista);
-
-  // Crear el botón de eliminación
-  var botonBorrar = document.createElement("button");
-  botonBorrar.textContent = "Eliminar invitado";
-  botonBorrar.classList.add("eliminar-invitado");
-  elementoLista.appendChild(botonBorrar);
-
-  // Eliminar el invitado al hacer clic en el botón
-  botonBorrar.onclick = function() {
-    elementoLista.remove(); // Eliminar el nodo del invitado
-  };
-}
-
-// Función para crear un elemento de la lista de invitados
-function crearElemento(descripcion, valor, contenedor) {
-  var spanDescripcion = document.createElement("span");
-  spanDescripcion.textContent = descripcion + ": ";
-  var inputValor = document.createElement("input");
-  inputValor.value = valor;
-  inputValor.disabled = true;  // Deshabilitar el campo para que no sea editable
-  contenedor.appendChild(spanDescripcion);
-  contenedor.appendChild(inputValor);
-  contenedor.appendChild(document.createElement("br"));
-}
-
-// Función para convertir la abreviatura de la nacionalidad en su nombre completo
-function convertirNacionalidad(codigo) {
-  switch (codigo) {
-    case "ar":
-      return "Argentina";
-    case "mx":
-      return "Mexicana";
-    case "per":
-      return "Peruana";
-    case "vnzl":
-      return "Venezolana";
-    default:
-      return "Desconocida";
+// Función para obtener el nombre de la nacionalidad
+function getNationalityName(code) {
+  switch (code) {
+    case 'ar': return 'Argentina';
+    case 'mx': return 'Mexicana';
+    case 'per': return 'Peruana';
+    case 'vnzl': return 'Venezolana';
+    default: return 'Desconocida';
   }
 }
